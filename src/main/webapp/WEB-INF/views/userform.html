@@ -44,14 +44,14 @@
 
     <label for="name">Имя:</label>
     <input type="text" id="name" th:field="*{name}" required />
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
 
     <label for="lastName">Фамилия:</label>
     <input type="text" id="lastName" th:field="*{lastName}" required />
+    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
 
     <button type="submit">Сохранить</button>
     <a href="/users" class="back-link" >Вернуться к списку пользователей</a>
 </form>
-
-
 </body>
 </html>

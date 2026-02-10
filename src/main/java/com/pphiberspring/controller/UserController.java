@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,8 +38,10 @@ public class UserController {
     }
 
     @PostMapping
-    public String saveUser(@ModelAttribute User user) {
-        System.out.println(user.getName());
+    public String saveUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "userform";
+        }
         userService.saveUser(user);
         return "redirect:/users";
     }

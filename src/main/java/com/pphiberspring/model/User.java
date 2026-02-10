@@ -1,5 +1,9 @@
 package com.pphiberspring.model;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity@Table(name = "users")
 public class User {
@@ -9,9 +13,13 @@ public class User {
     @Column(name = "id")
     private Long id;
 
+    @Size(min = 2, max = 15, message = "Имя должно быть от 2 до 15 символов.")
+    @Pattern(regexp="[А-ЯA-Z][а-яa-z]*", message = "Имя должно начинаться с заглавной буквы и не допускать лишних символов.")
     @Column(name = "name")
     private String name;
 
+    @Size(min = 2, max = 15, message = "Фамилия должна быть от 2 до 15 символов.")
+    @Pattern(regexp="[А-ЯA-Z][а-яa-z]*", message = "Фамилия должна начинаться с заглавной буквы и не допускать лишних символов.")
     @Column(name = "last_name")
     private String lastName;
 
@@ -24,7 +32,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    // Геттеры и сеттеры
     public Long getId() {
         return id;
     }
