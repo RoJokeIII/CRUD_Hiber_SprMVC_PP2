@@ -42,7 +42,10 @@
         <td th:text="${user.lastName}">Doe</td>
         <td>
             <a th:href="@{/users/edit(id=${user.id})}" class="button edit">Редактировать</a>
-            <a th:href="@{/users/delete(id=${user.id})}" class="button delete" onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?');">Удалить</a>
+            <form action="/users/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${user.id}" />
+                <button type="submit" class="button delete" onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?');">Удалить</button>
+            </form>
         </td>
     </tr>
     </tbody>
