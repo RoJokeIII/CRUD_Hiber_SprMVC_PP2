@@ -1,5 +1,6 @@
 package com.pphiberspring.dao;
 
+import com.pphiberspring.config.Exception.UserNotFoundException;
 import com.pphiberspring.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -36,6 +37,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserById(long id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(User.class,id);
+        User user = session.get(User.class,id);
+        if (user == null) {
+            throw new UserNotFoundException("Пользователь с ID " + id + " не найден.");
+        }
+        return user;
     }
 }

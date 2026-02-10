@@ -1,12 +1,15 @@
 package com.pphiberspring.controller;
 
 import com.pphiberspring.Service.UserService;
+import com.pphiberspring.config.Exception.UserNotFoundException;
 import com.pphiberspring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import javax.validation.Valid;
 import java.util.List;
@@ -51,5 +54,11 @@ public class UserController {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "userform";
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public String handleUserNotFoundException(UserNotFoundException ex, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("error", ex.getMessage());
+        return "redirect:/users";
     }
 }

@@ -1,5 +1,6 @@
 package com.pphiberspring.Service;
 
+import com.pphiberspring.config.Exception.UserNotFoundException;
 import com.pphiberspring.dao.UserDao;
 import com.pphiberspring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User getUserById(long id) {
-        return userDao.getUserById(id);
+        try {
+            return userDao.getUserById(id);
+        } catch (UserNotFoundException e) {
+            System.err.println("Пользователь не найден: " + e.getMessage());
+            throw e;
+        }
     }
 
 }
